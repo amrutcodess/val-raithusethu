@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Vinuthna Agrochemicals Theme - Clean, high-white/light grey background */
+    --background: 210 33% 98%; /* #F8FAFC */
+    --foreground: 217 33% 17%; /* #1E293B */
+
+    /* Cards - stark white for crisp contrast */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 217 33% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 33% 17%;
+
+    /* Deep Emerald Green (Vinuthna Green) */
+    --primary: 152 100% 20%; /* #006837 */
+    --primary-foreground: 0 0% 100%;
+
+    /* Gold Accent */
+    --secondary: 51 100% 50%; /* #FFD700 */
+    --secondary-foreground: 217 33% 17%;
+
+    /* Muted */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent - Lighter variant of primary or a complementary green */
+    --accent: 152 80% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 152 100% 20%;
+
+    /* Modern clean rounded corners */
+    --radius: 0.5rem;
+
+    /* Custom agricultural colors updated to brand */
+    --earth-brown: 32 35% 45%;
+    --leaf-green: 152 100% 20%;
+    --harvest-gold: 51 100% 50%;
+    --sky-blue: 200 65% 60%;
+    
+    --sidebar-background: 210 33% 98%;
+    --sidebar-foreground: 217 33% 17%;
+    --sidebar-primary: 152 100% 20%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 217 33% 17%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 152 100% 20%;
+  }
+
+  .dark {
+    /* Kept for completeness, though high-white is preferred */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 152 100% 30%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 51 100% 40%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 152 100% 30%;
+    
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 152 100% 30%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 152 100% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    /* Solid color for better readability based on mockup */
+    @apply text-primary drop-shadow-sm;
+  }
+  
+  .shadow-agricultural {
+    /* A softer, wider shadow for the cards */
+    box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.1), 0 4px 15px -4px hsl(var(--primary) / 0.05);
+  }
+
+  /* Utility classes for categorized backgrounds */
+  .bg-app-landing {
+    background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .bg-crops-selection {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .bg-problems-selection {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1592982537447-6f2a6a0c4c11?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .bg-products-selection {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .bg-treatment-plan {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1530836369250-ef71a3f5e481?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
