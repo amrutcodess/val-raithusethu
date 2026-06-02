@@ -205,7 +205,14 @@ const ProductRecommendation = () => {
                         </div>
                         <div>
                           <p className="text-sm uppercase text-white/70 font-bold tracking-widest mb-1">{t('dosagePerAcre')}</p>
-                          <p className="text-2xl font-black leading-tight text-white">{mapping.dosage_recommendation}</p>
+                          <p className="text-2xl font-black leading-tight text-white">
+                            {(() => {
+                              const min = mapping.dosage_min !== null && mapping.dosage_min !== undefined ? Number(mapping.dosage_min) : 0;
+                              const max = mapping.dosage_max !== null && mapping.dosage_max !== undefined ? Number(mapping.dosage_max) : 0;
+                              const avg = min > 0 || max > 0 ? (min + max) / 2 : 0;
+                              return avg > 0 ? `${avg} ${mapping.dosage_unit || 'ml'}` : mapping.dosage_recommendation || '—';
+                            })()}
+                          </p>
                         </div>
                       </div>
 

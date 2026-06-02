@@ -99,8 +99,10 @@ const TreatmentPlan = () => {
   const getProblemTitle = (p: any) =>
     language === 'te' ? p.title_te : language === 'hi' ? p.title_hi : p.title_en;
 
-  const totalDosageMin = (mappingInfo.dosage_min || 0) * acres;
-  const totalDosageMax = (mappingInfo.dosage_max || 0) * acres;
+  const dosageMin = mappingInfo.dosage_min !== null && mappingInfo.dosage_min !== undefined ? Number(mappingInfo.dosage_min) : 0;
+  const dosageMax = mappingInfo.dosage_max !== null && mappingInfo.dosage_max !== undefined ? Number(mappingInfo.dosage_max) : 0;
+  const avgDosage = dosageMin > 0 || dosageMax > 0 ? (dosageMin + dosageMax) / 2 : 0;
+  const totalDosageVal = avgDosage * acres;
 
   const handlePdfClick = () => {
     setShowPdfDialog(true);
@@ -260,13 +262,12 @@ const TreatmentPlan = () => {
       }
       y += 2;
       renderRow('Acres', String(acres));
-      renderRow(t('dosagePerAcre'), mappingInfo.dosage_recommendation);
+      const dosageStr = avgDosage > 0 ? `${avgDosage} ${mappingInfo.dosage_unit || 'ml'}` : mappingInfo.dosage_recommendation || '—';
+      renderRow(t('dosagePerAcre'), dosageStr);
 
-      const totalReq = totalDosageMin === totalDosageMax
-        ? `${totalDosageMin.toFixed(2)}`
-        : `${totalDosageMin.toFixed(2)} – ${totalDosageMax.toFixed(2)}`;
+      const totalReq = avgDosage > 0 ? `${totalDosageVal.toFixed(2)}` : '—';
       
-      renderRow('Total Required', `${totalReq} ${mappingInfo.dosage_unit}`);
+      renderRow('Total Required', `${totalReq} ${mappingInfo.dosage_unit || 'ml'}`);
 
       doc.setFontSize(9);
       doc.setTextColor(150);
@@ -290,7 +291,8 @@ const TreatmentPlan = () => {
   };
 
   const handleShareWhatsApp = () => {
-    const msg = `Treatment Plan\nCrop: ${getCropName(crop)}\nProblem: ${getProblemTitle(problem)}\nProduct: ${productInfo.name}\nAcres: ${acres}\nDosage: ${mappingInfo.dosage_recommendation}`;
+    const dosageStr = avgDosage > 0 ? `${avgDosage} ${mappingInfo.dosage_unit || 'ml'}` : mappingInfo.dosage_recommendation || '—';
+    const msg = `Treatment Plan\nCrop: ${getCropName(crop)}\nProblem: ${getProblemTitle(problem)}\nProduct: ${productInfo.name}\nAcres: ${acres}\nDosage: ${dosageStr}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -341,7 +343,9 @@ const TreatmentPlan = () => {
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
                 <p className="text-xs uppercase text-[#4ADE80] font-black tracking-widest mb-2">{t('dosagePerAcre')}</p>
-                <p className="text-2xl font-black font-display text-white">{mappingInfo.dosage_recommendation}</p>
+                <p className="text-2xl font-black font-display text-white">
+                  {avgDosage > 0 ? `${avgDosage} ${mappingInfo.dosage_unit || 'ml'}` : mappingInfo.dosage_recommendation || '—'}
+                </p>
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
                 <p className="text-xs uppercase text-[#4ADE80] font-black tracking-widest mb-2">Acres</p>
@@ -355,8 +359,8 @@ const TreatmentPlan = () => {
               </div>
               <h3 className="font-black text-secondary mb-3 text-2xl tracking-widest uppercase italic">Total Recommended Quantity</h3>
               <p className="text-6xl md:text-8xl font-black font-display text-white drop-shadow-lg">
-                {totalDosageMin === totalDosageMax ? `${totalDosageMin.toFixed(2)}` : `${totalDosageMin.toFixed(2)} – ${totalDosageMax.toFixed(2)}`}
-                <span className="text-3xl ml-3 text-secondary uppercase opacity-80">{mappingInfo.dosage_unit}</span>
+                {avgDosage > 0 ? `${totalDosageVal.toFixed(2)}` : '—'}
+                <span className="text-3xl ml-3 text-secondary uppercase opacity-80">{mappingInfo.dosage_unit || 'ml'}</span>
               </p>
             </div>
 
