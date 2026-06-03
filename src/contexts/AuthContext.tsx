@@ -31,22 +31,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(false);
   }, []);
 
+  // Simple hash function for passwords
+  const hashPassword = async (password: string): Promise<string> => {
+    try {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    } catch (e) {
+      console.warn('Subtle crypto not available, using fallback/plaintext');
+      return password;
+    }
+  };
+
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const { data, error } = await supabase.rpc('login_user', {
-        p_username: username,
-        p_password: password
-      });
+      const hashedPassword = await hashPassword(password);
+
+      // Query the users table directly
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('username', username);
 
       if (error || !data || data.length === 0) {
         return false;
       }
 
+      const dbUser = data[0];
+
+      // Support both hashed and plaintext password matching
+      const isValidPassword = 
+        dbUser.password_hash === password || 
+        dbUser.password_hash === hashedPassword;
+
+      if (!isValidPassword) {
+        return false;
+      }
+
       const loggedInUser: User = {
-        id: data[0].id,
-        username: data[0].username,
-        role: data[0].role,
-        avatar_url: data[0].avatar_url
+        id: dbUser.id,
+        username: dbUser.username,
+        role: dbUser.role as 'admin' | 'manager' | 'guest',
+        avatar_url: dbUser.avatar_url
       };
 
       setUser(loggedInUser);
