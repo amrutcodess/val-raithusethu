@@ -150,7 +150,7 @@ const CropSelection = () => {
 
       <div className="container mx-auto px-4 py-12 pt-16 flex-1 relative z-10">
         <div className="text-center mb-12 animate-fade-in px-2">
-          <h1 className="text-5xl md:text-7xl font-display font-black text-[#4ADE80] mb-6 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
+          <h1 className="text-5xl md:text-7xl font-display font-black text-[#FB923C] mb-6 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
             {t('selectCrop')}
           </h1>
           <p className="text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto drop-shadow-md">
@@ -159,7 +159,7 @@ const CropSelection = () => {
         </div>
 
         {loading ? (
-          <div className="text-center text-3xl text-[#4ADE80] mt-20 font-bold animate-pulse">
+          <div className="text-center text-3xl text-[#FB923C] mt-20 font-bold animate-pulse">
             Loading Crops...
           </div>
         ) : crops.length > 0 ? (
@@ -198,10 +198,10 @@ const CropSelection = () => {
         <Dialog open={stageDialogOpen} onOpenChange={setStageDialogOpen}>
           <DialogContent className="sm:max-w-md bg-[#FDFBF7] border-none rounded-[2rem] p-8">
             <DialogHeader className="mb-6">
-              <DialogTitle className="text-3xl text-center font-display font-bold text-[#1B4332]">
+              <DialogTitle className="text-3xl text-center font-display font-bold text-[#7C2D12]">
                 Select Growth Stage
               </DialogTitle>
-              <DialogDescription className="text-center text-[#405D4E] text-lg">
+              <DialogDescription className="text-center text-[#8C6D58] text-lg">
                 Which stage is your {selectedCrop ? getCropName(selectedCrop) : ''} in?
               </DialogDescription>
             </DialogHeader>
@@ -211,7 +211,7 @@ const CropSelection = () => {
                   key={index}
                   variant="outline"
                   size="lg"
-                  className="w-full text-xl justify-start gap-4 border-none bg-[#E8F5E9] text-[#1B4332] hover:bg-[#2E7D32] hover:text-white transition-all duration-300 rounded-2xl h-16 shadow-sm"
+                  className="w-full text-xl justify-start gap-4 border-none bg-[#FFEDD5] text-[#7C2D12] hover:bg-[#EA580C] hover:text-white transition-all duration-300 rounded-2xl h-16 shadow-sm"
                   onClick={() => handleStageSelect(stage)}
                 >
                   <div className="bg-white/50 p-2 rounded-xl">

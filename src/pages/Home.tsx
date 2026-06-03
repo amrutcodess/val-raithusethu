@@ -37,12 +37,12 @@ const Home = () => {
             className="px-8 py-6 hover:shadow-agricultural transition-all duration-300 cursor-pointer border-none bg-[#FDFBF7] rounded-[2rem] flex items-center gap-6"
             onClick={() => navigate('/crops')}
           >
-            <div className="bg-[#E8F5E9] p-5 rounded-2xl flex-shrink-0">
-              <Sprout className="w-10 h-10 text-[#2E7D32]" />
+            <div className="bg-[#FFEDD5] p-5 rounded-2xl flex-shrink-0">
+              <Sprout className="w-10 h-10 text-[#EA580C]" />
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#1B4332] mb-1">{t('startDiagnosis')}</h2>
-              <p className="text-[#405D4E] text-base sm:text-lg">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#7C2D12] mb-1">{t('startDiagnosis')}</h2>
+              <p className="text-[#8C6D58] text-base sm:text-lg">
                 Get personalized crop treatment recommendations
               </p>
             </div>
@@ -52,12 +52,12 @@ const Home = () => {
             className="px-8 py-6 hover:shadow-agricultural transition-all duration-300 cursor-pointer border-none bg-[#FDFBF7] rounded-[2rem] flex items-center gap-6"
             onClick={() => navigate('/about')}
           >
-            <div className="bg-[#E8F5E9] p-5 rounded-2xl flex-shrink-0">
-              <FileText className="w-10 h-10 text-[#2E7D32]" />
+            <div className="bg-[#FFEDD5] p-5 rounded-2xl flex-shrink-0">
+              <FileText className="w-10 h-10 text-[#EA580C]" />
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#1B4332] mb-1">{t('aboutUs')}</h2>
-              <p className="text-[#405D4E] text-base sm:text-lg">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#7C2D12] mb-1">{t('aboutUs')}</h2>
+              <p className="text-[#8C6D58] text-base sm:text-lg">
                 Learn more about Vinuthna Agro Industries
               </p>
             </div>
@@ -70,7 +70,7 @@ const Home = () => {
             <Button
               variant="outline"
               size="lg"
-              className="h-16 text-lg border-none bg-[#FDFBF7] text-[#1B4332] hover:bg-[#E8F5E9] rounded-2xl shadow-md font-semibold"
+              className="h-16 text-lg border-none bg-[#FDFBF7] text-[#7C2D12] hover:bg-[#FFEDD5] rounded-2xl shadow-md font-semibold"
               onClick={() => navigate('/login/manager')}
             >
               <LogIn className="mr-3 h-5 w-5" />
@@ -79,7 +79,7 @@ const Home = () => {
             <Button
               variant="outline"
               size="lg"
-              className="h-16 text-lg border-none bg-[#FDFBF7] text-[#1B4332] hover:bg-[#E8F5E9] rounded-2xl shadow-md font-semibold"
+              className="h-16 text-lg border-none bg-[#FDFBF7] text-[#7C2D12] hover:bg-[#FFEDD5] rounded-2xl shadow-md font-semibold"
               onClick={() => navigate('/login/admin')}
             >
               <Shield className="mr-3 h-5 w-5" />

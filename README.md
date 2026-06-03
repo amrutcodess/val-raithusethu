@@ -1,4 +1,4 @@
-# Shanmukha Kisan Sethu
+# Vinoothna Kisan Sethu
 Vinuthna Agrochemicals Raithu Sethu  is a comprehensive agricultural management platform designed to empower farmers and agricultural professionals. It serves as a bridge between modern agricultural knowledge and practical application, providing detailed crop management strategies, problem identification, and treatment recommendations.
 
 ## 🚀 Project Overview
@@ -61,7 +61,7 @@ Follow these steps to run the project locally on your machine.
 1.  **Clone the repository:**
     ```bash
     git clone <YOUR_GIT_URL>
-    cd shanmukha-kisansethu
+    cd vinoothna-kisansethu
     ```
 
 2.  **Install dependencies:**

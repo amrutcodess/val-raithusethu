@@ -303,13 +303,13 @@ const TreatmentPlan = () => {
 
       <div className="container mx-auto px-4 py-12 pt-16 flex-1 relative z-10 flex flex-col items-center">
         <div className="text-center mb-10 animate-fade-in">
-          <div className="bg-[#4ADE80] p-4 rounded-full inline-block mb-4 shadow-xl">
-            <FileCheck className="w-12 h-12 text-[#1B4332]" />
+          <div className="bg-[#FB923C] p-4 rounded-full inline-block mb-4 shadow-xl">
+            <FileCheck className="w-12 h-12 text-[#7C2D12]" />
           </div>
           <h1 className="text-4xl md:text-6xl font-display font-bold text-white drop-shadow-lg">
             {t('treatmentPlan')}
           </h1>
-          <p className="text-[#4ADE80] font-bold text-xl mt-2 tracking-wide uppercase italic">
+          <p className="text-[#FB923C] font-bold text-xl mt-2 tracking-wide uppercase italic">
             Certified Recommendation
           </p>
         </div>
@@ -320,7 +320,7 @@ const TreatmentPlan = () => {
               {productInfo.image_url ? (
                 <img src={productInfo.image_url} alt={productInfo.name} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center"><Package className="w-24 h-24 text-[#4ADE80]" /></div>
+                <div className="w-full h-full flex items-center justify-center"><Package className="w-24 h-24 text-[#FB923C]" /></div>
               )}
             </div>
             <div className="text-center lg:text-left">
@@ -334,21 +334,21 @@ const TreatmentPlan = () => {
           <div className="flex-1 space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
-                <p className="text-xs uppercase text-[#4ADE80] font-black tracking-widest mb-2">{t('crop')}</p>
+                <p className="text-xs uppercase text-[#FB923C] font-black tracking-widest mb-2">{t('crop')}</p>
                 <p className="text-2xl font-black font-display text-white">{getCropName(crop)}</p>
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
-                <p className="text-xs uppercase text-[#4ADE80] font-black tracking-widest mb-2">{t('problem')}</p>
+                <p className="text-xs uppercase text-[#FB923C] font-black tracking-widest mb-2">{t('problem')}</p>
                 <p className="text-2xl font-black font-display text-white">{getProblemTitle(problem)}</p>
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
-                <p className="text-xs uppercase text-[#4ADE80] font-black tracking-widest mb-2">{t('dosagePerAcre')}</p>
+                <p className="text-xs uppercase text-[#FB923C] font-black tracking-widest mb-2">{t('dosagePerAcre')}</p>
                 <p className="text-2xl font-black font-display text-white">
                   {avgDosage > 0 ? `${avgDosage} ${mappingInfo.dosage_unit || 'ml'}` : mappingInfo.dosage_recommendation || '—'}
                 </p>
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
-                <p className="text-xs uppercase text-[#4ADE80] font-black tracking-widest mb-2">Acres</p>
+                <p className="text-xs uppercase text-[#FB923C] font-black tracking-widest mb-2">Acres</p>
                 <p className="text-2xl font-black font-display text-white">{acres}</p>
               </div>
             </div>
@@ -365,7 +365,7 @@ const TreatmentPlan = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
-              <Button onClick={handlePdfClick} className="h-20 rounded-[1.5rem] text-2xl font-black bg-[#4ADE80] text-[#1B4332] hover:bg-white hover:text-[#1B4332] transition-all transform hover:scale-[1.05] shadow-2xl shadow-[#4ADE80]/20 flex-1">
+              <Button onClick={handlePdfClick} className="h-20 rounded-[1.5rem] text-2xl font-black bg-[#FB923C] text-[#7C2D12] hover:bg-white hover:text-[#7C2D12] transition-all transform hover:scale-[1.05] shadow-2xl shadow-[#FB923C]/20 flex-1">
                 <Download className="mr-3 h-8 w-8" /> PDF
               </Button>
               <Button variant="outline" onClick={handleShareWhatsApp} className="h-20 rounded-[1.5rem] text-2xl font-black text-white bg-black/20 hover:bg-[#25D366] hover:text-white border-none shadow-xl transition-all transform hover:scale-[1.05] flex-1">
@@ -381,31 +381,31 @@ const TreatmentPlan = () => {
 
       <Dialog open={showPdfDialog} onOpenChange={setShowPdfDialog}>
         <DialogContent className="sm:max-w-md bg-[#FDFBF7] border-none rounded-[3rem] p-10 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-0 w-full h-2 bg-[#4ADE80]"></div>
+          <div className="absolute top-0 left-0 w-full h-2 bg-[#FB923C]"></div>
           <DialogHeader className="mb-8">
-            <DialogTitle className="text-3xl font-display font-bold text-[#1B4332] flex items-center gap-3">
-              <div className="bg-[#4ADE80]/10 p-2 rounded-xl">
-                <FileCheck className="h-8 w-8 text-[#2E7D32]" />
+            <DialogTitle className="text-3xl font-display font-bold text-[#7C2D12] flex items-center gap-3">
+              <div className="bg-[#FB923C]/10 p-2 rounded-xl">
+                <FileCheck className="h-8 w-8 text-[#EA580C]" />
               </div>
               Farmer Details
             </DialogTitle>
-            <DialogDescription className="text-lg text-[#405D4E] mt-2">
+            <DialogDescription className="text-lg text-[#8C6D58] mt-2">
               For official records and PDF header
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="name" className="text-sm font-bold text-[#1B4332] uppercase tracking-widest pl-2">Name</Label>
+              <Label htmlFor="name" className="text-sm font-bold text-[#7C2D12] uppercase tracking-widest pl-2">Name</Label>
               <Input
                 id="name"
                 placeholder="Rama Rao"
                 value={farmerName}
                 onChange={(e) => setFarmerName(e.target.value)}
-                className="h-14 rounded-2xl border-none bg-[#E8F5E9] text-lg font-medium px-6 focus-visible:ring-4 focus-visible:ring-[#4ADE80] transition-all"
+                className="h-14 rounded-2xl border-none bg-[#FFEDD5] text-lg font-medium px-6 focus-visible:ring-4 focus-visible:ring-[#FB923C] transition-all"
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="mobile" className="text-sm font-bold text-[#1B4332] uppercase tracking-widest pl-2">Mobile Number</Label>
+              <Label htmlFor="mobile" className="text-sm font-bold text-[#7C2D12] uppercase tracking-widest pl-2">Mobile Number</Label>
               <Input
                 id="mobile"
                 placeholder="9876543210"
@@ -413,25 +413,25 @@ const TreatmentPlan = () => {
                 value={farmerMobile}
                 step="1"
                 onChange={(e) => setFarmerMobile(e.target.value)}
-                className="h-14 rounded-2xl border-none bg-[#E8F5E9] text-lg font-medium px-6 focus-visible:ring-4 focus-visible:ring-[#4ADE80] transition-all"
+                className="h-14 rounded-2xl border-none bg-[#FFEDD5] text-lg font-medium px-6 focus-visible:ring-4 focus-visible:ring-[#FB923C] transition-all"
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="location" className="text-sm font-bold text-[#1B4332] uppercase tracking-widest pl-2">Location</Label>
+              <Label htmlFor="location" className="text-sm font-bold text-[#7C2D12] uppercase tracking-widest pl-2">Location</Label>
               <Input
                 id="location"
                 placeholder="Village / Town"
                 value={farmerLocation}
                 onChange={(e) => setFarmerLocation(e.target.value)}
-                className="h-14 rounded-2xl border-none bg-[#E8F5E9] text-lg font-medium px-6 focus-visible:ring-4 focus-visible:ring-[#4ADE80] transition-all"
+                className="h-14 rounded-2xl border-none bg-[#FFEDD5] text-lg font-medium px-6 focus-visible:ring-4 focus-visible:ring-[#FB923C] transition-all"
               />
             </div>
           </div>
           <DialogFooter className="gap-2 sm:gap-4 mt-8">
-            <Button variant="ghost" onClick={() => setShowPdfDialog(false)} className="h-14 rounded-2xl w-full sm:w-auto text-[#405D4E] font-bold">
+            <Button variant="ghost" onClick={() => setShowPdfDialog(false)} className="h-14 rounded-2xl w-full sm:w-auto text-[#8C6D58] font-bold">
               Cancel
             </Button>
-            <Button onClick={handleConfirmGenerate} disabled={isGenerating} className="h-14 rounded-2xl w-full sm:w-auto font-bold bg-[#1B4332] hover:bg-[#2E7D32] text-white px-10 shadow-xl shadow-[#1B4332]/20 transition-all transform active:scale-95">
+            <Button onClick={handleConfirmGenerate} disabled={isGenerating} className="h-14 rounded-2xl w-full sm:w-auto font-bold bg-[#7C2D12] hover:bg-[#EA580C] text-white px-10 shadow-xl shadow-[#7C2D12]/20 transition-all transform active:scale-95">
               {isGenerating ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Download className="mr-2 h-5 w-5" />}
               Generate PDF
             </Button>

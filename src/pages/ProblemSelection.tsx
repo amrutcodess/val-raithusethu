@@ -114,14 +114,14 @@ const ProblemSelection = () => {
           <Button
             variant="ghost"
             onClick={() => navigate(-1)}
-            className="text-white bg-[#1B4332] hover:bg-[#2D5A47] rounded-2xl h-14 px-8 text-xl font-bold border-2 border-orange-600 shadow-xl"
+            className="text-white bg-[#7C2D12] hover:bg-[#9A3412] rounded-2xl h-14 px-8 text-xl font-bold border-2 border-orange-600 shadow-xl"
           >
             <ArrowLeft className="mr-3 h-6 w-6" />
             {t('selectCrop')}
           </Button>
 
           <div className="text-center md:text-right space-y-2">
-            <p className="text-2xl text-[#4ADE80] font-black drop-shadow-md">
+            <p className="text-2xl text-[#FB923C] font-black drop-shadow-md">
               {t('crop')}: <span className="text-white uppercase">{getCropName(crop)}</span>
             </p>
             {stage && (

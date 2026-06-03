@@ -128,7 +128,7 @@ const ProductRecommendation = () => {
           <Button
             variant="ghost"
             onClick={() => navigate(-1)}
-            className="text-white bg-[#1B4332] hover:bg-[#2D5A47] rounded-2xl h-14 px-8 text-xl font-bold border-2 border-[#4ADE80]/30 shadow-xl"
+            className="text-white bg-[#7C2D12] hover:bg-[#9A3412] rounded-2xl h-14 px-8 text-xl font-bold border-2 border-[#FB923C]/30 shadow-xl"
           >
             <ArrowLeft className="mr-3 h-6 w-6" />
             {t('selectProblem')}
@@ -182,7 +182,7 @@ const ProductRecommendation = () => {
                       />
                     ) : (
                       <div className="w-full h-full bg-primary/20 flex items-center justify-center">
-                        <Package className="w-20 h-20 text-[#4ADE80]" />
+                        <Package className="w-20 h-20 text-[#FB923C]" />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -218,11 +218,11 @@ const ProductRecommendation = () => {
 
                       {mapping.spray_interval && (
                         <div className="flex items-start gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
-                          <div className="bg-[#4ADE80] p-3 rounded-xl mt-1 shadow-[0_0_15px_rgba(74,222,128,0.3)]">
-                            <Calculator className="w-6 h-6 text-[#1B4332]" />
+                          <div className="bg-[#FB923C] p-3 rounded-xl mt-1 shadow-[0_0_15px_rgba(251,146,60,0.3)]">
+                            <Calculator className="w-6 h-6 text-[#7C2D12]" />
                           </div>
                           <div>
-                            <p className="text-sm uppercase text-[#4ADE80] font-black tracking-widest mb-1">{t('sprayInterval')}</p>
+                            <p className="text-sm uppercase text-[#FB923C] font-black tracking-widest mb-1">{t('sprayInterval')}</p>
                             <p className="text-2xl font-black leading-tight">{mapping.spray_interval}</p>
                           </div>
                         </div>
@@ -252,16 +252,16 @@ const ProductRecommendation = () => {
 
       <Dialog open={showAcresDialog} onOpenChange={setShowAcresDialog}>
         <DialogContent className="sm:max-w-md bg-[#FDFBF7] border-none rounded-[2.5rem] p-10 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-0 w-full h-2 bg-[#4ADE80]"></div>
+          <div className="absolute top-0 left-0 w-full h-2 bg-[#FB923C]"></div>
           <DialogHeader className="mb-8">
-            <DialogTitle className="text-3xl font-display font-bold text-[#1B4332] flex items-center gap-3">
-              <div className="bg-[#4ADE80]/10 p-2 rounded-xl">
-                <Calculator className="h-8 w-8 text-[#2E7D32]" />
+            <DialogTitle className="text-3xl font-display font-bold text-[#7C2D12] flex items-center gap-3">
+              <div className="bg-[#FB923C]/10 p-2 rounded-xl">
+                <Calculator className="h-8 w-8 text-[#EA580C]" />
               </div>
               {t('enterAcres')}
             </DialogTitle>
-            <DialogDescription className="text-lg text-[#405D4E] mt-2">
-              Calculate precisely for: <span className="font-bold text-[#1B4332]">{selectedMapping?.products.name}</span>
+            <DialogDescription className="text-lg text-[#8C6D58] mt-2">
+              Calculate precisely for: <span className="font-bold text-[#7C2D12]">{selectedMapping?.products.name}</span>
             </DialogDescription>
           </DialogHeader>
 
@@ -273,17 +273,17 @@ const ProductRecommendation = () => {
                 min="0"
                 value={acres}
                 onChange={(e) => setAcres(e.target.value)}
-                className="h-20 rounded-2xl text-3xl font-bold bg-[#E8F5E9] border-none text-[#1B4332] focus-visible:ring-4 focus-visible:ring-[#4ADE80] px-8 pl-14 transition-all"
+                className="h-20 rounded-2xl text-3xl font-bold bg-[#FFEDD5] border-none text-[#7C2D12] focus-visible:ring-4 focus-visible:ring-[#FB923C] px-8 pl-14 transition-all"
                 placeholder="0.0"
               />
-              <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl font-bold text-[#2E7D32]/50">#</span>
-              <span className="absolute right-6 top-1/2 -translate-y-1/2 text-lg font-bold text-[#2E7D32]">Acres</span>
+              <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl font-bold text-[#EA580C]/50">#</span>
+              <span className="absolute right-6 top-1/2 -translate-y-1/2 text-lg font-bold text-[#EA580C]">Acres</span>
             </div>
 
             <Button 
               onClick={handleGeneratePlan} 
               size="lg" 
-              className="w-full h-16 rounded-2xl text-xl font-bold bg-[#2E7D32] hover:bg-[#1B4332] text-white shadow-xl shadow-[#2E7D32]/20 transition-all transform active:scale-95"
+              className="w-full h-16 rounded-2xl text-xl font-bold bg-[#EA580C] hover:bg-[#7C2D12] text-white shadow-xl shadow-[#EA580C]/20 transition-all transform active:scale-95"
             >
               {t('generatePlan')}
             </Button>

@@ -8,8 +8,8 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Vinuthna Agrochemicals Theme - Clean, high-white/light grey background */
-    --background: 210 33% 98%; /* #F8FAFC */
+    /* Vinuthna Agrochemicals Theme - Clean, warm creamy/white background */
+    --background: 36 30% 97.5%; /* #FAF6F0 */
     --foreground: 217 33% 17%; /* #1E293B */
 
     /* Cards - stark white for crisp contrast */
@@ -19,20 +19,20 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 217 33% 17%;
 
-    /* Deep Emerald Green (Vinuthna Green) */
-    --primary: 152 100% 20%; /* #006837 */
+    /* Premium Orangish/Terracotta (Vinuthna Orange) */
+    --primary: 24 95% 35%; /* #C2410C */
     --primary-foreground: 0 0% 100%;
 
     /* Gold Accent */
-    --secondary: 51 100% 50%; /* #FFD700 */
+    --secondary: 35 90% 50%; /* #F59E0B */
     --secondary-foreground: 217 33% 17%;
 
     /* Muted */
-    --muted: 210 40% 96%;
+    --muted: 36 30% 95%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent - Lighter variant of primary or a complementary green */
-    --accent: 152 80% 30%;
+    /* Accent - Vibrant Orange */
+    --accent: 24 85% 45%; /* #EA580C */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -40,25 +40,25 @@ All colors MUST be HSL.
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 152 100% 20%;
+    --ring: 24 95% 35%;
 
     /* Modern clean rounded corners */
     --radius: 0.5rem;
 
     /* Custom agricultural colors updated to brand */
-    --earth-brown: 32 35% 45%;
-    --leaf-green: 152 100% 20%;
-    --harvest-gold: 51 100% 50%;
-    --sky-blue: 200 65% 60%;
+    --earth-brown: 30 40% 40%;
+    --leaf-green: 24 95% 35%;
+    --harvest-gold: 38 92% 50%;
+    --sky-blue: 24 90% 75%;
     
-    --sidebar-background: 210 33% 98%;
+    --sidebar-background: 36 30% 97.5%;
     --sidebar-foreground: 217 33% 17%;
-    --sidebar-primary: 152 100% 20%;
+    --sidebar-primary: 24 95% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent: 36 30% 95%;
     --sidebar-accent-foreground: 217 33% 17%;
     --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 152 100% 20%;
+    --sidebar-ring: 24 95% 35%;
   }
 
   .dark {
@@ -72,10 +72,10 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 152 100% 30%;
+    --primary: 24 95% 45%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 51 100% 40%;
+    --secondary: 35 90% 45%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
@@ -89,16 +89,16 @@ All colors MUST be HSL.
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 152 100% 30%;
+    --ring: 24 95% 45%;
     
     --sidebar-background: 222.2 84% 4.9%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 152 100% 30%;
+    --sidebar-primary: 24 95% 45%;
     --sidebar-primary-foreground: 222.2 47.4% 11.2%;
     --sidebar-accent: 217.2 32.6% 17.5%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 152 100% 30%;
+    --sidebar-ring: 24 95% 45%;
   }
 }
 
@@ -125,35 +125,35 @@ All colors MUST be HSL.
 
   /* Utility classes for categorized backgrounds */
   .bg-app-landing {
-    background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.8), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-crops-selection {
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.85), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1508962914676-134849a727f0?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-problems-selection {
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1592982537447-6f2a6a0c4c11?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.85), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1535090408574-8eff83c4112a?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-products-selection {
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.85), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-treatment-plan {
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1530836369250-ef71a3f5e481?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.9), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1530836369250-ef71a3f5e481?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
