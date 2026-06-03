@@ -125,35 +125,35 @@ All colors MUST be HSL.
 
   /* Utility classes for categorized backgrounds */
   .bg-app-landing {
-    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.8), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.2), rgba(250, 246, 240, 0.4)), url('https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-crops-selection {
-    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.85), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1508962914676-134849a727f0?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.15), rgba(250, 246, 240, 0.35)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-problems-selection {
-    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.85), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1535090408574-8eff83c4112a?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.15), rgba(250, 246, 240, 0.35)), url('https://images.unsplash.com/photo-1592982537447-6f2a6a0c4c11?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-products-selection {
-    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.85), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.15), rgba(250, 246, 240, 0.35)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
   .bg-treatment-plan {
-    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.9), rgba(250, 246, 240, 0.95)), url('https://images.unsplash.com/photo-1530836369250-ef71a3f5e481?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(to bottom, rgba(250, 246, 240, 0.15), rgba(250, 246, 240, 0.35)), url('https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
