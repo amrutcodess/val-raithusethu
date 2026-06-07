@@ -139,8 +139,8 @@ const CropSelection = () => {
   };
 
   const getCropName = (crop: Crop) => {
-    if (language === 'te') return crop.name_te;
-    if (language === 'hi') return crop.name_hi;
+    if (language === 'te' && crop.name_te) return crop.name_te;
+    if (language === 'hi' && crop.name_hi) return crop.name_hi;
     return crop.name_en;
   };
 
@@ -174,7 +174,7 @@ const CropSelection = () => {
                 <div className="absolute inset-0">
                   <img
                     src={crop.image_url || getCropImage(crop)}
-                    alt={language === 'te' ? crop.name_te : language === 'hi' ? crop.name_hi : crop.name_en}
+                    alt={getCropName(crop)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:from-black/95 transition-all duration-500"></div>
@@ -182,7 +182,7 @@ const CropSelection = () => {
 
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col items-center text-center">
                   <h3 className="text-2xl md:text-4xl font-display font-black text-white mb-2 tracking-tight drop-shadow-lg">
-                    {language === 'te' ? crop.name_te : language === 'hi' ? crop.name_hi : crop.name_en}
+                    {getCropName(crop)}
                   </h3>
                   <div className="h-1.5 w-16 bg-white/50 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
                 </div>
