@@ -15,6 +15,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
+import { translateStage } from '@/lib/translations';
 
 // Helper to get high-quality Unsplash images for common crops
 const getCropImage = (crop: Crop) => {
@@ -199,10 +200,14 @@ const CropSelection = () => {
           <DialogContent className="sm:max-w-md bg-[#FDFBF7] border-none rounded-[2rem] p-8">
             <DialogHeader className="mb-6">
               <DialogTitle className="text-3xl text-center font-display font-bold text-[#7C2D12]">
-                Select Growth Stage
+                {language === 'te' ? 'పంట దశను ఎంచుకోండి' : language === 'hi' ? 'फसल का चरण चुनें' : 'Select Growth Stage'}
               </DialogTitle>
               <DialogDescription className="text-center text-[#8C6D58] text-lg">
-                Which stage is your {selectedCrop ? getCropName(selectedCrop) : ''} in?
+                {language === 'te' 
+                  ? `మీ ${selectedCrop ? getCropName(selectedCrop) : ''} ఏ దశలో ఉంది?` 
+                  : language === 'hi' 
+                    ? `आपकी ${selectedCrop ? getCropName(selectedCrop) : ''} किस चरण में है?` 
+                    : `Which stage is your ${selectedCrop ? getCropName(selectedCrop) : ''} in?`}
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -217,7 +222,7 @@ const CropSelection = () => {
                   <div className="bg-white/50 p-2 rounded-xl">
                     <Sprout className="w-6 h-6" />
                   </div>
-                  {stage}
+                  {translateStage(stage, language)}
                 </Button>
               ))}
             </div>

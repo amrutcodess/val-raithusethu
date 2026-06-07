@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { translateStageHeader } from '@/lib/translations';
 
 const ProductRecommendation = () => {
   const { language, t } = useLanguage();
@@ -57,7 +58,7 @@ const ProductRecommendation = () => {
           `)
           .eq('problem_id', problemId);
 
-        if (stage) {
+        if (stage && stage !== 'All Stages') {
           query = query.eq('stage', stage);
         }
 
@@ -143,7 +144,7 @@ const ProductRecommendation = () => {
             </p>
             {stage && (
               <p className="text-lg text-white font-bold italic bg-white/10 px-4 py-1 rounded-full">
-                {stage} Stage
+                {translateStageHeader(stage, language)}
               </p>
             )}
           </div>
@@ -164,7 +165,13 @@ const ProductRecommendation = () => {
           </div>
         ) : mappings.length === 0 ? (
           <div className="text-center p-12 bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/20 max-w-2xl mx-auto">
-            <p className="text-2xl font-display font-medium">No products available for this problem at this stage.</p>
+            <p className="text-2xl font-display font-medium">
+              {language === 'te' 
+                ? 'ఈ దశలో ఈ సమస్యకు ఎటువంటి ఉత్పత్తులు అందుబాటులో లేవు.' 
+                : language === 'hi' 
+                  ? 'इस चरण में इस समस्या के लिए कोई उत्पाद उपलब्ध नहीं हैं।' 
+                  : 'No products available for this problem at this stage.'}
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">

@@ -8,6 +8,7 @@ import { ArrowLeft, Bug } from 'lucide-react';
 import { Problem, Crop } from '@/types/app';
 import { toast } from 'sonner';
 import { HomeButton } from '@/components/HomeButton';
+import { translateStageHeader } from '@/lib/translations';
 
 // Helper to get high-quality Unsplash images for common problems
 const getProblemImage = (problem: Problem) => {
@@ -126,7 +127,7 @@ const ProblemSelection = () => {
             </p>
             {stage && (
               <p className="text-lg text-white font-bold italic bg-white/10 px-4 py-1 rounded-full">
-                {stage} Stage
+                {translateStageHeader(stage, language)}
               </p>
             )}
           </div>
@@ -147,8 +148,16 @@ const ProblemSelection = () => {
           </div>
         ) : problems.length === 0 ? (
           <div className="text-center p-12 bg-white/10 backdrop-blur-md rounded-[3rem] border-2 border-dashed border-white/20 max-w-2xl mx-auto">
-            <p className="text-3xl font-bold mb-6">No problems found for this stage.</p>
-            <Button onClick={() => navigate(-1)} className="bg-orange-800 text-white h-16 px-10 rounded-2xl text-xl font-black">{t('goBack')}</Button>
+            <p className="text-3xl font-bold mb-6">
+              {language === 'te' 
+                ? 'ఈ దశకు ఎటువంటి సమస్యలు కనుగొనబడలేదు.' 
+                : language === 'hi' 
+                  ? 'इस चरण के लिए कोई समस्या नहीं मिली।' 
+                  : 'No problems found for this stage.'}
+            </p>
+            <Button onClick={() => navigate(-1)} className="bg-orange-800 text-white h-16 px-10 rounded-2xl text-xl font-black">
+              {language === 'te' ? 'వెనుకకు వెళ్ళండి' : language === 'hi' ? 'वापस जाएं' : 'Go Back'}
+            </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 max-w-7xl mx-auto">
