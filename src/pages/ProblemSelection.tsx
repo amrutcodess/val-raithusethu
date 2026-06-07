@@ -94,8 +94,8 @@ const ProblemSelection = () => {
   };
 
   const getProblemTitle = (problem: Problem) => {
-    if (language === 'te') return problem.title_te;
-    if (language === 'hi') return problem.title_hi;
+    if (language === 'te') return problem.title_te || problem.title_en;
+    if (language === 'hi') return problem.title_hi || problem.title_en;
     return problem.title_en;
   };
 
@@ -178,7 +178,7 @@ const ProblemSelection = () => {
 
                 <div className="p-8 md:p-10 text-center">
                   <h3 className="text-3xl md:text-5xl font-display font-black text-white mb-4 tracking-tight leading-tight">
-                    {language === 'te' ? problem.title_te : language === 'hi' ? problem.title_hi : problem.title_en}
+                    {getProblemTitle(problem)}
                   </h3>
                   <p className="text-xl text-white/90 font-bold line-clamp-3 leading-relaxed mb-6">
                     {problem.description || (language === 'te' ? 'సమస్య వివరణ' : language === 'hi' ? 'समस्या का विवरण' : 'Identifying details...')}

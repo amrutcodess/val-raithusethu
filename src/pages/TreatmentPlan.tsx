@@ -94,10 +94,10 @@ const TreatmentPlan = () => {
   const mappingInfo = product;
 
   const getCropName = (c: any) =>
-    language === 'te' ? c.name_te : language === 'hi' ? c.name_hi : c.name_en;
+    language === 'te' ? (c.name_te || c.name_en) : language === 'hi' ? (c.name_hi || c.name_en) : c.name_en;
 
   const getProblemTitle = (p: any) =>
-    language === 'te' ? p.title_te : language === 'hi' ? p.title_hi : p.title_en;
+    language === 'te' ? (p.title_te || p.title_en) : language === 'hi' ? (p.title_hi || p.title_en) : p.title_en;
 
   const dosageMin = mappingInfo.dosage_min !== null && mappingInfo.dosage_min !== undefined ? Number(mappingInfo.dosage_min) : 0;
   const dosageMax = mappingInfo.dosage_max !== null && mappingInfo.dosage_max !== undefined ? Number(mappingInfo.dosage_max) : 0;

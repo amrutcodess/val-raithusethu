@@ -114,10 +114,10 @@ const ProductRecommendation = () => {
   };
 
   const getCropName = (c?: Crop) =>
-    !c ? '—' : language === 'te' ? c.name_te : language === 'hi' ? c.name_hi : c.name_en;
+    !c ? '—' : language === 'te' ? (c.name_te || c.name_en) : language === 'hi' ? (c.name_hi || c.name_en) : c.name_en;
 
   const getProblemTitle = (p?: Problem) =>
-    !p ? '—' : language === 'te' ? p.title_te : language === 'hi' ? p.title_hi : p.title_en;
+    !p ? '—' : language === 'te' ? (p.title_te || p.title_en) : language === 'hi' ? (p.title_hi || p.title_en) : p.title_en;
 
   return (
     <div className="min-h-screen bg-products-selection flex flex-col relative text-white">
