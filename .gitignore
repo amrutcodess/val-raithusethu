@@ -24,8 +24,7 @@ dist-ssr
 *.sw?
 
 .vercel
-.env
-.env.*
+.env.local
 scratch/
 scratch_query.js
 problems_with_commas.json
