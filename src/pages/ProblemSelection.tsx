@@ -4,7 +4,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Bug } from 'lucide-react';
+import { ArrowLeft, Bug, Check, Layers } from 'lucide-react';
 import { Problem, Crop } from '@/types/app';
 import { toast } from 'sonner';
 import { HomeButton } from '@/components/HomeButton';
@@ -41,6 +41,8 @@ const ProblemSelection = () => {
   const stage = location.state?.stage as string | undefined;
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [multiSelectMode, setMultiSelectMode] = useState(false);
+  const [selectedProblems, setSelectedProblems] = useState<Problem[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +92,15 @@ const ProblemSelection = () => {
   }, [cropId, stage]);
 
   const handleProblemSelect = (problem: Problem) => {
-    navigate(`/products/${problem.id}`, { state: { crop, problem, stage } });
+    if (multiSelectMode) {
+      if (selectedProblems.some(p => p.id === problem.id)) {
+        setSelectedProblems(selectedProblems.filter(p => p.id !== problem.id));
+      } else {
+        setSelectedProblems([...selectedProblems, problem]);
+      }
+    } else {
+      navigate(`/products/${problem.id}`, { state: { crop, problem, stage } });
+    }
   };
 
   const getProblemTitle = (problem: Problem) => {
@@ -112,14 +122,31 @@ const ProblemSelection = () => {
 
       <div className="container mx-auto px-4 py-12 pt-16 flex-1 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 animate-fade-in">
-          <Button
-            variant="ghost"
-            onClick={() => navigate(-1)}
-            className="text-white bg-[#7C2D12] hover:bg-[#9A3412] rounded-2xl h-14 px-8 text-xl font-bold border-2 border-orange-600 shadow-xl"
-          >
-            <ArrowLeft className="mr-3 h-6 w-6" />
-            {t('selectCrop')}
-          </Button>
+          <div className="flex flex-wrap items-center gap-4">
+            <Button
+              variant="ghost"
+              onClick={() => navigate(-1)}
+              className="text-white bg-[#7C2D12] hover:bg-[#9A3412] rounded-2xl h-14 px-8 text-xl font-bold border-2 border-orange-600 shadow-xl"
+            >
+              <ArrowLeft className="mr-3 h-6 w-6" />
+              {t('selectCrop')}
+            </Button>
+
+            <Button
+              onClick={() => {
+                setMultiSelectMode(!multiSelectMode);
+                setSelectedProblems([]);
+              }}
+              className={`rounded-2xl h-14 px-8 text-xl font-bold border-2 shadow-xl transition-all ${
+                multiSelectMode 
+                  ? 'bg-orange-600 text-white border-orange-400 hover:bg-orange-700' 
+                  : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
+              }`}
+            >
+              <Layers className="mr-3 h-6 w-6" />
+              {multiSelectMode ? 'Single Select Mode' : 'Select Multiple'}
+            </Button>
+          </div>
 
           <div className="text-center md:text-right space-y-2">
             <p className="text-2xl text-[#FB923C] font-black drop-shadow-md">
@@ -138,7 +165,7 @@ const ProblemSelection = () => {
             {t('selectProblem')}
           </h1>
           <p className="text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto drop-shadow-md">
-            Identify the issue affecting your crop
+            {multiSelectMode ? 'Select all the issues affecting your crop' : 'Identify the issue affecting your crop'}
           </p>
         </div>
 
@@ -161,37 +188,69 @@ const ProblemSelection = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 max-w-7xl mx-auto">
-            {problems.map((problem) => (
-              <Card
-                key={problem.id}
-                className="group relative overflow-hidden rounded-[3rem] border-2 border-[#D97706]/50 bg-[#D97706] hover:bg-[#B45309] transition-all duration-500 shadow-2xl cursor-pointer animate-fade-in"
-                onClick={() => handleProblemSelect(problem)}
-              >
-                <div className="aspect-[3/2] w-full overflow-hidden relative">
-                  <img
-                    src={problem.image_url || getProblemImage(problem)}
-                    alt={problem.title_en}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent group-hover:from-black/100 transition-all duration-500"></div>
-                </div>
+            {problems.map((problem) => {
+              const isSelected = selectedProblems.some(p => p.id === problem.id);
+              return (
+                <Card
+                  key={problem.id}
+                  className={`group relative overflow-hidden rounded-[3rem] border-2 bg-[#D97706] hover:bg-[#B45309] transition-all duration-500 shadow-2xl cursor-pointer animate-fade-in ${
+                    isSelected ? 'border-orange-400 scale-[1.02] ring-4 ring-orange-500/50' : 'border-[#D97706]/50'
+                  }`}
+                  onClick={() => handleProblemSelect(problem)}
+                >
+                  {isSelected && (
+                    <div className="absolute top-6 right-6 z-20 bg-orange-600 text-white p-3 rounded-full shadow-lg border-2 border-white">
+                      <Check className="h-6 w-6 stroke-[3]" />
+                    </div>
+                  )}
 
-                <div className="p-8 md:p-10 text-center">
-                  <h3 className="text-3xl md:text-5xl font-display font-black text-white mb-4 tracking-tight leading-tight">
-                    {getProblemTitle(problem)}
-                  </h3>
-                  <p className="text-xl text-white/90 font-bold line-clamp-3 leading-relaxed mb-6">
-                    {problem.description || (language === 'te' ? 'సమస్య వివరణ' : language === 'hi' ? 'समस्या का विवरण' : 'Identifying details...')}
-                  </p>
-                  <div className="inline-flex items-center gap-2 p-1 px-4 rounded-full bg-[#B45309] text-white font-black text-sm uppercase tracking-widest group-hover:bg-[#92400E] transition-colors">
-                    Detect Issue
+                  <div className="aspect-[3/2] w-full overflow-hidden relative">
+                    <img
+                      src={problem.image_url || getProblemImage(problem)}
+                      alt={problem.title_en}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent group-hover:from-black/100 transition-all duration-500"></div>
                   </div>
-                </div>
-              </Card>
-            ))}
+
+                  <div className="p-8 md:p-10 text-center">
+                    <h3 className="text-3xl md:text-5xl font-display font-black text-white mb-4 tracking-tight leading-tight">
+                      {getProblemTitle(problem)}
+                    </h3>
+                    <p className="text-xl text-white/90 font-bold line-clamp-3 leading-relaxed mb-6">
+                      {problem.description || (language === 'te' ? 'సమస్య వివరణ' : language === 'hi' ? 'समस्या का विवरण' : 'Identifying details...')}
+                    </p>
+                    <div className="inline-flex items-center gap-2 p-1 px-4 rounded-full bg-[#B45309] text-white font-black text-sm uppercase tracking-widest group-hover:bg-[#92400E] transition-colors">
+                      {multiSelectMode ? (isSelected ? 'Selected' : 'Select Issue') : 'Detect Issue'}
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
         )}
       </div>
+
+      {multiSelectMode && selectedProblems.length > 0 && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-[#7C2D12] border-2 border-[#FB923C]/50 p-4 px-8 rounded-full shadow-2xl flex items-center gap-6 animate-fade-in">
+          <span className="text-xl font-black text-[#FB923C]">{selectedProblems.length} Selected</span>
+          <Button
+            onClick={() => {
+              const ids = selectedProblems.map(p => p.id).join(',');
+              navigate(`/products/${ids}`, { 
+                state: { 
+                  crop, 
+                  problems: selectedProblems,
+                  stage 
+                } 
+              });
+            }}
+            className="bg-orange-600 hover:bg-orange-700 text-white font-black text-lg h-12 px-6 rounded-xl shadow-lg border border-orange-400"
+          >
+            Find Solutions
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

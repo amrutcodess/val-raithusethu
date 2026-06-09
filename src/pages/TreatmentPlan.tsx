@@ -89,7 +89,7 @@ const TreatmentPlan = () => {
 
   if (!location.state) return null;
 
-  const { crop, problem, product, acres } = location.state as TreatmentData;
+  const { crop, problem, problems, product, acres } = location.state as TreatmentData;
   const productInfo = product.products; 
   const mappingInfo = product;
 
@@ -97,7 +97,14 @@ const TreatmentPlan = () => {
     language === 'te' ? (c.name_te || c.name_en) : language === 'hi' ? (c.name_hi || c.name_en) : c.name_en;
 
   const getProblemTitle = (p: any) =>
-    language === 'te' ? (p.title_te || p.title_en) : language === 'hi' ? (p.title_hi || p.title_en) : p.title_en;
+    !p ? '—' : language === 'te' ? (p.title_te || p.title_en) : language === 'hi' ? (p.title_hi || p.title_en) : p.title_en;
+
+  const getProblemTitleText = () => {
+    if (problems && problems.length > 0) {
+      return problems.map(p => getProblemTitle(p)).join(' + ');
+    }
+    return getProblemTitle(problem);
+  };
 
   const dosageMin = mappingInfo.dosage_min !== null && mappingInfo.dosage_min !== undefined ? Number(mappingInfo.dosage_min) : 0;
   const dosageMax = mappingInfo.dosage_max !== null && mappingInfo.dosage_max !== undefined ? Number(mappingInfo.dosage_max) : 0;
@@ -122,23 +129,40 @@ const TreatmentPlan = () => {
     setIsGenerating(true);
 
     try {
+      const firstProblemImgUrl = problem?.image_url || (problems && problems.length > 0 ? problems[0].image_url : null);
       const [logoData, cropImg, problemImg, productImg] = await Promise.all([
         fetchImageAsBase64(LOGO_URL),
         crop.image_url ? fetchImageAsBase64(crop.image_url) : Promise.resolve(null),
-        problem.image_url ? fetchImageAsBase64(problem.image_url) : Promise.resolve(null),
+        firstProblemImgUrl ? fetchImageAsBase64(firstProblemImgUrl) : Promise.resolve(null),
         productInfo.image_url ? fetchImageAsBase64(productInfo.image_url) : Promise.resolve(null)
       ]);
 
-      const { error: dbError } = await supabase.from('analytics').insert({
-        crop_id: crop.id,      
-        problem_id: problem.id,
-        product_id: productInfo.id, 
-        acres: acres,
-        language: language,
-        farmer_name: farmerName,
-        farmer_mobile: farmerMobile,
-        farmer_location: farmerLocation
-      });
+      let insertRows = [];
+      if (problems && problems.length > 0) {
+        insertRows = problems.map(p => ({
+          crop_id: crop.id,
+          problem_id: p.id,
+          product_id: productInfo.id,
+          acres: acres,
+          language: language,
+          farmer_name: farmerName,
+          farmer_mobile: farmerMobile,
+          farmer_location: farmerLocation
+        }));
+      } else {
+        insertRows = [{
+          crop_id: crop.id,
+          problem_id: problem?.id ?? null,
+          product_id: productInfo.id,
+          acres: acres,
+          language: language,
+          farmer_name: farmerName,
+          farmer_mobile: farmerMobile,
+          farmer_location: farmerLocation
+        }];
+      }
+
+      const { error: dbError } = await supabase.from('analytics').insert(insertRows);
 
       if (dbError) console.error('DB Log Error:', dbError);
 
@@ -254,7 +278,7 @@ const TreatmentPlan = () => {
       };
 
       renderRow(t('crop'), getCropName(crop));
-      renderRow(t('problem'), getProblemTitle(problem));
+      renderRow(t('problem'), getProblemTitleText());
       renderRow(t('product'), productInfo.name);
       
       if (productInfo.scientific_formula) {
@@ -292,7 +316,7 @@ const TreatmentPlan = () => {
 
   const handleShareWhatsApp = () => {
     const dosageStr = avgDosage > 0 ? `${avgDosage} ${mappingInfo.dosage_unit || 'ml'}` : mappingInfo.dosage_recommendation || '—';
-    const msg = `Treatment Plan\nCrop: ${getCropName(crop)}\nProblem: ${getProblemTitle(problem)}\nProduct: ${productInfo.name}\nAcres: ${acres}\nDosage: ${dosageStr}`;
+    const msg = `Treatment Plan\nCrop: ${getCropName(crop)}\nProblem: ${getProblemTitleText()}\nProduct: ${productInfo.name}\nAcres: ${acres}\nDosage: ${dosageStr}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -339,7 +363,7 @@ const TreatmentPlan = () => {
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
                 <p className="text-xs uppercase text-[#FB923C] font-black tracking-widest mb-2">{t('problem')}</p>
-                <p className="text-2xl font-black font-display text-white">{getProblemTitle(problem)}</p>
+                <p className="text-2xl font-black font-display text-white">{getProblemTitleText()}</p>
               </div>
               <div className="p-6 bg-black/40 rounded-2xl border border-white/10 shadow-inner">
                 <p className="text-xs uppercase text-[#FB923C] font-black tracking-widest mb-2">{t('dosagePerAcre')}</p>

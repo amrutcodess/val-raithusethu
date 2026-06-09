@@ -56,7 +56,8 @@ export interface ProductMapping {
 // UPDATED: Now uses ProductMapping to ensure TreatmentPlan works with the new structure
 export interface TreatmentData {
   crop: Crop;
-  problem: Problem;
+  problem?: Problem;
+  problems?: Problem[];
   product: ProductMapping;
   acres: number;
 }

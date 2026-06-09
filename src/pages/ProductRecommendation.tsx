@@ -26,10 +26,12 @@ const ProductRecommendation = () => {
 
   const crop = (location.state as any)?.crop as Crop | undefined;
   const problem = (location.state as any)?.problem as Problem | undefined;
+  const problems = (location.state as any)?.problems as Problem[] | undefined;
   const stage = (location.state as any)?.stage as string | undefined;
 
   const [mappings, setMappings] = useState<ProductMapping[]>([]);
   const [loading, setLoading] = useState(true);
+  const [recommendationType, setRecommendationType] = useState<'single' | 'common' | 'individual'>('single');
   
   const [selectedMapping, setSelectedMapping] = useState<ProductMapping | null>(null);
   const [acres, setAcres] = useState('');
@@ -44,6 +46,7 @@ const ProductRecommendation = () => {
 
     const fetchProducts = async () => {
       try {
+        const problemIds = problemId.split(',');
         let query = supabase
           .from('product_mappings' as any) 
           .select(`
@@ -56,7 +59,7 @@ const ProductRecommendation = () => {
               pack_sizes
             )
           `)
-          .eq('problem_id', problemId);
+          .in('problem_id', problemIds);
 
         if (stage && stage !== 'All Stages') {
           query = query.eq('stage', stage);
@@ -66,7 +69,52 @@ const ProductRecommendation = () => {
 
         if (error) throw error;
 
-        setMappings((data as unknown as ProductMapping[]) || []);
+        const rawMappings = (data as unknown as ProductMapping[]) || [];
+        
+        if (problemIds.length > 1) {
+          // Group by product id
+          const productGroups = new Map<string, ProductMapping[]>();
+          rawMappings.forEach(m => {
+            const prodId = m.products.id;
+            if (!productGroups.has(prodId)) {
+              productGroups.set(prodId, []);
+            }
+            productGroups.get(prodId)!.push(m);
+          });
+          
+          const commonList: ProductMapping[] = [];
+          const individualList: ProductMapping[] = [];
+          
+          for (const [prodId, list] of productGroups.entries()) {
+            const uniqueProblems = new Set(list.map(m => m.problem_id));
+            const treatsAll = problemIds.every(id => uniqueProblems.has(id));
+            
+            const primaryMapping = list[0];
+            
+            if (treatsAll) {
+              commonList.push({
+                ...primaryMapping,
+                isCommon: true
+              } as any);
+            }
+            
+            individualList.push({
+              ...primaryMapping,
+              isCommon: treatsAll
+            } as any);
+          }
+          
+          if (commonList.length > 0) {
+            setMappings(commonList);
+            setRecommendationType('common');
+          } else {
+            setMappings(individualList);
+            setRecommendationType('individual');
+          }
+        } else {
+          setMappings(rawMappings);
+          setRecommendationType('single');
+        }
       } catch (err) {
         console.error(err);
         toast.error('Failed to load products');
@@ -92,13 +140,17 @@ const ProductRecommendation = () => {
     if (!selectedMapping) return;
 
     try {
-      await supabase.from('analytics').insert({
+      const problemIds = problemId?.split(',') || [];
+      const insertRows = problemIds.map(id => ({
         crop_id: crop?.id ?? null,
-        problem_id: problemId,
+        problem_id: id,
         product_id: selectedMapping.products.id, 
         acres: Number(acres),
         language,
-      });
+      }));
+      if (insertRows.length > 0) {
+        await supabase.from('analytics').insert(insertRows);
+      }
     } catch {
       // ignore analytics error
     }
@@ -107,10 +159,18 @@ const ProductRecommendation = () => {
       state: {
         crop,
         problem,
+        problems,
         product: selectedMapping,
         acres: Number(acres),
       },
     });
+  };
+
+  const getProblemTitleText = () => {
+    if (problems && problems.length > 0) {
+      return problems.map(p => getProblemTitle(p)).join(' + ');
+    }
+    return getProblemTitle(problem);
   };
 
   const getCropName = (c?: Crop) =>
@@ -140,7 +200,7 @@ const ProductRecommendation = () => {
               {t('crop')}: <span className="text-primary uppercase">{getCropName(crop)}</span>
             </p>
             <p className="text-2xl text-slate-800 font-black drop-shadow-sm">
-              {t('problem')}: <span className="text-primary uppercase">{getProblemTitle(problem)}</span>
+              {t('problem')}: <span className="text-primary uppercase">{getProblemTitleText()}</span>
             </p>
             {stage && (
               <p className="text-lg text-white font-bold italic bg-white/10 px-4 py-1 rounded-full">
@@ -152,10 +212,16 @@ const ProductRecommendation = () => {
 
         <div className="text-center mb-12 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-display font-bold text-primary mb-4 drop-shadow-sm">
-            {t('recommendedProducts')}
+            {recommendationType === 'common' 
+              ? 'Common Solutions' 
+              : (recommendationType === 'individual' ? 'Individual Solutions' : t('recommendedProducts'))}
           </h1>
           <p className="text-lg md:text-xl text-slate-700 max-w-2xl mx-auto font-medium">
-            Choose the best solution for your crop's health
+            {recommendationType === 'common'
+              ? `These products are highly recommended as they treat all selected issues: ${getProblemTitleText()}`
+              : (recommendationType === 'individual' 
+                  ? 'No single product treats all selected issues. Displaying all individual products.' 
+                  : 'Choose the best solution for your crop\'s health')}
           </p>
         </div>
 
@@ -177,9 +243,12 @@ const ProductRecommendation = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {mappings.map((mapping) => {
               const product = mapping.products;
+              const isCommon = (mapping as any).isCommon;
               
               return (
-                <Card key={mapping.id} className="group overflow-hidden rounded-[2rem] border-2 border-[#D97706]/50 bg-[#D97706] hover:bg-[#B45309] transition-all duration-500 shadow-xl hover:shadow-2xl animate-fade-in flex flex-col h-full">
+                <Card key={mapping.id} className={`group overflow-hidden rounded-[2rem] border-2 bg-[#D97706] hover:bg-[#B45309] transition-all duration-500 shadow-xl hover:shadow-2xl animate-fade-in flex flex-col h-full ${
+                  isCommon ? 'border-green-500 ring-2 ring-green-500/20' : 'border-[#D97706]/50'
+                }`}>
                   <div className="aspect-video w-full overflow-hidden relative bg-slate-100">
                     {product.image_url ? (
                       <img
@@ -193,10 +262,15 @@ const ProductRecommendation = () => {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-4 left-6">
+                    <div className="absolute bottom-4 left-6 flex flex-wrap gap-2">
                       <span className="bg-[#B45309] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                         Effective Formula
                       </span>
+                      {isCommon && (
+                        <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
+                          Common Solution
+                        </span>
+                      )}
                     </div>
                   </div>
 

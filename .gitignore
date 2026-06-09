@@ -24,5 +24,8 @@ dist-ssr
 *.sw?
 
 .vercel
-
-.vercel
+.env
+.env.*
+scratch/
+scratch_query.js
+problems_with_commas.json
