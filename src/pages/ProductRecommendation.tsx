@@ -182,7 +182,7 @@ const ProductRecommendation = () => {
   return (
     <div className="min-h-screen bg-products-selection flex flex-col relative text-white">
       <HomeButton />
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+      <div className="absolute inset-0 bg-black/60 z-0"></div>
 
       <div className="container mx-auto px-4 py-12 pt-16 flex-1 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 animate-fade-in">
@@ -196,11 +196,11 @@ const ProductRecommendation = () => {
           </Button>
 
           <div className="text-center md:text-right space-y-2">
-            <p className="text-2xl text-slate-800 font-black drop-shadow-sm">
-              {t('crop')}: <span className="text-primary uppercase">{getCropName(crop)}</span>
+            <p className="text-2xl text-[#FB923C] font-black drop-shadow-md">
+              {t('crop')}: <span className="text-white uppercase">{getCropName(crop)}</span>
             </p>
-            <p className="text-2xl text-slate-800 font-black drop-shadow-sm">
-              {t('problem')}: <span className="text-primary uppercase">{getProblemTitleText()}</span>
+            <p className="text-2xl text-[#FB923C] font-black drop-shadow-md">
+              {t('problem')}: <span className="text-white uppercase">{getProblemTitleText()}</span>
             </p>
             {stage && (
               <p className="text-lg text-white font-bold italic bg-white/10 px-4 py-1 rounded-full">
@@ -211,12 +211,12 @@ const ProductRecommendation = () => {
         </div>
 
         <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-display font-bold text-primary mb-4 drop-shadow-sm">
+          <h1 className="text-4xl md:text-6xl font-display font-black text-white mb-4 drop-shadow-lg">
             {recommendationType === 'common' 
               ? 'Common Solutions' 
               : (recommendationType === 'individual' ? 'Individual Solutions' : t('recommendedProducts'))}
           </h1>
-          <p className="text-lg md:text-xl text-slate-700 max-w-2xl mx-auto font-medium">
+          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-medium drop-shadow-sm">
             {recommendationType === 'common'
               ? `These products are highly recommended as they treat all selected issues: ${getProblemTitleText()}`
               : (recommendationType === 'individual' 
